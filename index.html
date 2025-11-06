@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -43,21 +44,60 @@
             padding: 0 20px;
         }
         
-        /* Header */
+        /* 3D Canvas Background */
+        #canvas-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* Floating Geometric Shapes */
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            33% { transform: translate3d(30px, -30px, 0) rotate(120deg); }
+            66% { transform: translate3d(-20px, 20px, 0) rotate(240deg); }
+        }
+        
+        .shape-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .shape-2 { top: 20%; right: 15%; animation-delay: 3s; }
+        .shape-3 { bottom: 20%; left: 15%; animation-delay: 6s; }
+        .shape-4 { bottom: 15%; right: 10%; animation-delay: 9s; }
+        
+        /* Header with 3D effects */
         header {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--light-gray);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transform: translateZ(10px);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
         
         .logo {
@@ -65,6 +105,13 @@
             font-weight: 700;
             color: var(--navy);
             text-decoration: none;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateZ(20px) scale(1.05);
+            text-shadow: 0 10px 20px rgba(30, 58, 95, 0.3);
         }
         
         nav a {
@@ -72,20 +119,26 @@
             color: var(--medium-gray);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            display: inline-block;
         }
         
         nav a:hover {
             color: var(--accent);
+            transform: translateY(-2px) translateZ(10px);
         }
         
-        /* Hero Section */
+        /* Hero Section with 3D Parallax */
         .hero {
             background: linear-gradient(135deg, var(--navy) 0%, #2c5282 100%);
             color: var(--white);
             padding: 120px 0 100px;
             position: relative;
             overflow: hidden;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero::before {
@@ -97,12 +150,26 @@
             height: 100%;
             background: rgba(255,255,255,0.03);
             transform: skewX(-10deg);
+            transition: transform 0.3s ease;
         }
         
         .hero-content {
             position: relative;
             z-index: 10;
             max-width: 700px;
+            transform-style: preserve-3d;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) translateZ(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0);
+            }
         }
         
         .hero h1 {
@@ -110,6 +177,8 @@
             line-height: 1.2;
             margin-bottom: 25px;
             color: var(--white);
+            transform-style: preserve-3d;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
         .hero p {
@@ -117,8 +186,10 @@
             margin-bottom: 40px;
             color: rgba(255,255,255,0.9);
             font-weight: 300;
+            transform: translateZ(20px);
         }
         
+        /* 3D CTA Button */
         .cta-button {
             display: inline-block;
             background: var(--success);
@@ -128,21 +199,45 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 18px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
         }
         
         .cta-button:hover {
             background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-5px) translateZ(30px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.5);
         }
         
-        /* Trust Badges */
+        .cta-button:active {
+            transform: translateY(-2px) translateZ(20px) scale(0.98);
+        }
+        
+        /* 3D Trust Badges */
         .trust-badges {
             background: var(--white);
             padding: 50px 0;
             border-bottom: 1px solid var(--light-gray);
+            position: relative;
+            z-index: 10;
         }
         
         .badges-grid {
@@ -154,33 +249,63 @@
         
         .badge {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             border: 2px solid var(--light-gray);
-            border-radius: 8px;
-            transition: all 0.3s;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .badge:hover::before {
+            opacity: 1;
         }
         
         .badge:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transform: translateY(-10px) translateZ(30px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
         
         .badge h3 {
             font-size: 18px;
             color: var(--navy);
-            margin-top: 10px;
+            margin-top: 15px;
+            transform: translateZ(20px);
         }
         
         .badge-icon {
-            font-size: 40px;
-            color: var(--accent);
+            font-size: 48px;
+            display: block;
+            margin-bottom: 10px;
+            transition: transform 0.4s;
+            transform-style: preserve-3d;
         }
         
-        /* Stats Section */
+        .badge:hover .badge-icon {
+            transform: translateZ(40px) scale(1.2) rotateY(360deg);
+        }
+        
+        /* Stats Section with scroll animation */
         .stats {
             background: var(--light-gray);
             padding: 80px 0;
+            position: relative;
+            z-index: 10;
         }
         
         .stats-grid {
@@ -190,32 +315,55 @@
             text-align: center;
         }
         
+        .stat-item {
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .stat-item.animate-in {
+            opacity: 1;
+            transform: translateY(0) translateZ(0);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px) translateZ(30px) scale(1.05);
+        }
+        
         .stat-item h2 {
             font-size: 56px;
             color: var(--accent);
             margin-bottom: 10px;
+            text-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+            transform: translateZ(20px);
         }
         
         .stat-item p {
             font-size: 18px;
             color: var(--medium-gray);
             font-weight: 500;
+            transform: translateZ(10px);
         }
         
         /* Problem/Solution Section */
         .problem-solution {
             padding: 100px 0;
             background: var(--white);
+            position: relative;
+            z-index: 10;
         }
         
         .section-header {
             text-align: center;
             margin-bottom: 70px;
+            transform-style: preserve-3d;
         }
         
         .section-header h2 {
             font-size: 42px;
             margin-bottom: 20px;
+            transform: translateZ(20px);
         }
         
         .section-header p {
@@ -235,21 +383,46 @@
         .column {
             padding: 40px;
             border-radius: 12px;
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .column::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+        
+        .column:hover::before {
+            opacity: 1;
+        }
+        
+        .column:hover {
+            transform: translateY(-10px) translateZ(30px) rotateY(2deg);
         }
         
         .problem {
-            background: #fee;
+            background: linear-gradient(145deg, #fee, #fdd);
             border-left: 5px solid #dc2626;
         }
         
         .solution {
-            background: #eff6ff;
+            background: linear-gradient(145deg, #eff6ff, #dbeafe);
             border-left: 5px solid var(--accent);
         }
         
         .column h3 {
             font-size: 28px;
             margin-bottom: 25px;
+            transform: translateZ(15px);
         }
         
         .column ul {
@@ -260,6 +433,12 @@
             padding: 12px 0 12px 30px;
             position: relative;
             font-size: 17px;
+            transition: transform 0.3s;
+            transform-style: preserve-3d;
+        }
+        
+        .column ul li:hover {
+            transform: translateX(10px) translateZ(10px);
         }
         
         .column ul li::before {
@@ -278,10 +457,12 @@
             color: var(--accent);
         }
         
-        /* Features Section */
+        /* 3D Features Cards */
         .features {
             background: var(--light-gray);
             padding: 100px 0;
+            position: relative;
+            z-index: 10;
         }
         
         .features-grid {
@@ -289,25 +470,45 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
             margin-top: 60px;
+            perspective: 1000px;
         }
         
         .feature-card {
             background: var(--white);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
         }
         
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            transform: translateY(-20px) translateZ(50px) rotateX(5deg);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
         
         .feature-icon {
             width: 70px;
             height: 70px;
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -315,22 +516,34 @@
             font-size: 32px;
             color: var(--white);
             margin-bottom: 25px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: translateZ(60px) rotateY(360deg) scale(1.1);
+            box-shadow: 0 20px 50px rgba(37, 99, 235, 0.6);
         }
         
         .feature-card h3 {
             font-size: 24px;
             margin-bottom: 15px;
+            transform: translateZ(20px);
         }
         
         .feature-card p {
             color: var(--medium-gray);
             font-size: 16px;
+            transform: translateZ(10px);
         }
         
-        /* How It Works Section */
+        /* How It Works with 3D Steps */
         .how-it-works {
             background: var(--white);
             padding: 100px 0;
+            position: relative;
+            z-index: 10;
         }
         
         .steps {
@@ -338,17 +551,24 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 50px;
             margin-top: 60px;
+            perspective: 1500px;
         }
         
         .step {
             text-align: center;
             position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-10px) translateZ(40px);
         }
         
         .step-number {
             width: 80px;
             height: 80px;
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
             color: var(--white);
             border-radius: 50%;
             display: flex;
@@ -357,17 +577,43 @@
             font-size: 36px;
             font-weight: 700;
             margin: 0 auto 25px;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        
+        .step-number::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #1d4ed8);
+            opacity: 0.3;
+            filter: blur(10px);
+            transition: all 0.5s;
+        }
+        
+        .step:hover .step-number {
+            transform: translateZ(60px) rotateY(360deg) scale(1.15);
+            box-shadow: 0 25px 50px rgba(37, 99, 235, 0.6);
+        }
+        
+        .step:hover .step-number::before {
+            inset: -15px;
+            opacity: 0.5;
         }
         
         .step h3 {
             font-size: 22px;
             margin-bottom: 15px;
+            transform: translateZ(20px);
         }
         
         .step p {
             color: var(--medium-gray);
             font-size: 16px;
+            transform: translateZ(10px);
         }
         
         /* Waitlist Section */
@@ -375,36 +621,50 @@
             background: linear-gradient(135deg, var(--navy) 0%, #2c5282 100%);
             color: var(--white);
             padding: 100px 0;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
         }
         
         .waitlist-content {
             max-width: 700px;
             margin: 0 auto;
             text-align: center;
+            transform-style: preserve-3d;
         }
         
         .waitlist h2 {
             font-size: 42px;
             color: var(--white);
             margin-bottom: 20px;
+            transform: translateZ(20px);
         }
         
         .waitlist p {
             font-size: 20px;
             margin-bottom: 40px;
             color: rgba(255,255,255,0.9);
+            transform: translateZ(15px);
         }
         
         .waitlist-form {
             background: var(--white);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+        }
+        
+        .waitlist-form:hover {
+            transform: translateZ(30px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
         }
         
         .form-group {
             margin-bottom: 20px;
             text-align: left;
+            transform-style: preserve-3d;
         }
         
         .form-group label {
@@ -412,6 +672,7 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--navy);
+            transform: translateZ(10px);
         }
         
         .form-group input,
@@ -422,13 +683,16 @@
             border-radius: 6px;
             font-size: 16px;
             font-family: 'Inter', sans-serif;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--accent);
+            transform: translateZ(10px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
         }
         
         .submit-button {
@@ -441,14 +705,35 @@
             font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .submit-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
         
         .submit-button:hover {
             background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-5px) translateZ(30px);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.5);
         }
         
         .form-message {
@@ -457,6 +742,7 @@
             border-radius: 6px;
             display: none;
             font-weight: 500;
+            transform: translateZ(20px);
         }
         
         .form-message.success {
@@ -476,6 +762,8 @@
             background: var(--dark-gray);
             color: rgba(255,255,255,0.8);
             padding: 60px 0 30px;
+            position: relative;
+            z-index: 10;
         }
         
         .footer-content {
@@ -497,6 +785,11 @@
         
         .footer-section ul li {
             margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .footer-section ul li:hover {
+            transform: translateX(5px);
         }
         
         .footer-section a {
@@ -538,12 +831,47 @@
             nav {
                 display: none;
             }
+            
+            .feature-card:hover,
+            .badge:hover,
+            .step:hover {
+                transform: translateY(-10px) translateZ(20px);
+            }
+        }
+        
+        /* Smooth Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <!-- 3D Canvas Background -->
+    <canvas id="canvas-3d"></canvas>
+    
+    <!-- Floating Geometric Shapes -->
+    <svg class="floating-shape shape-1" width="100" height="100" viewBox="0 0 100 100">
+        <polygon points="50,10 90,90 10,90" fill="var(--accent)" />
+    </svg>
+    <svg class="floating-shape shape-2" width="80" height="80" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="var(--success)" />
+    </svg>
+    <svg class="floating-shape shape-3" width="90" height="90" viewBox="0 0 100 100">
+        <rect x="20" y="20" width="60" height="60" fill="var(--navy)" />
+    </svg>
+    <svg class="floating-shape shape-4" width="70" height="70" viewBox="0 0 100 100">
+        <polygon points="50,10 90,35 75,80 25,80 10,35" fill="var(--medium-gray)" />
+    </svg>
+    
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">PowerUp Enterprise</a>
@@ -557,7 +885,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="container">
             <div class="hero-content">
                 <h1>Transform Your Enterprise Operations with Confidence</h1>
@@ -571,20 +899,20 @@
     <section class="trust-badges">
         <div class="container">
             <div class="badges-grid">
-                <div class="badge">
-                    <div class="badge-icon">🔒</div>
+                <div class="badge animate-on-scroll">
+                    <span class="badge-icon">🔒</span>
                     <h3>ISO 27001 Certified</h3>
                 </div>
-                <div class="badge">
-                    <div class="badge-icon">✓</div>
+                <div class="badge animate-on-scroll">
+                    <span class="badge-icon">✓</span>
                     <h3>SOC 2 Type II</h3>
                 </div>
-                <div class="badge">
-                    <div class="badge-icon">🛡️</div>
+                <div class="badge animate-on-scroll">
+                    <span class="badge-icon">🛡️</span>
                     <h3>GDPR Compliant</h3>
                 </div>
-                <div class="badge">
-                    <div class="badge-icon">⚕️</div>
+                <div class="badge animate-on-scroll">
+                    <span class="badge-icon">⚕️</span>
                     <h3>HIPAA Ready</h3>
                 </div>
             </div>
@@ -618,12 +946,12 @@
     <!-- Problem/Solution Section -->
     <section class="problem-solution">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2>Solving Critical Enterprise Challenges</h2>
                 <p>We understand the complexities your organization faces. PowerUp Enterprise addresses them head-on.</p>
             </div>
             <div class="two-column">
-                <div class="column problem">
+                <div class="column problem animate-on-scroll">
                     <h3>The Challenge</h3>
                     <ul>
                         <li>Fragmented systems causing data silos</li>
@@ -633,7 +961,7 @@
                         <li>Scalability constraints as you grow</li>
                     </ul>
                 </div>
-                <div class="column solution">
+                <div class="column solution animate-on-scroll">
                     <h3>Our Solution</h3>
                     <ul>
                         <li>Unified platform with seamless integrations</li>
@@ -650,37 +978,37 @@
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2>Enterprise-Grade Capabilities</h2>
                 <p>Comprehensive features designed for the demands of modern enterprise environments.</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">🔐</div>
                     <h3>Advanced Security</h3>
                     <p>Bank-level encryption, SSO, role-based access control, and comprehensive audit logs to protect your data.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">⚡</div>
                     <h3>Workflow Automation</h3>
                     <p>Automate complex business processes with our no-code workflow builder and reduce manual overhead.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">📊</div>
                     <h3>Analytics & Insights</h3>
                     <p>Powerful reporting tools with customizable dashboards to drive data-informed decision making.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">🔗</div>
                     <h3>Seamless Integration</h3>
                     <p>Connect with 200+ enterprise tools including Salesforce, Microsoft 365, SAP, and custom APIs.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">📈</div>
                     <h3>Scalable Infrastructure</h3>
                     <p>Cloud-native architecture that grows with your organization, from 100 to 100,000 users.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card animate-on-scroll">
                     <div class="feature-icon">🎯</div>
                     <h3>Dedicated Support</h3>
                     <p>24/7 enterprise support with dedicated account managers and 99.99% uptime SLA guarantee.</p>
@@ -692,27 +1020,27 @@
     <!-- How It Works Section -->
     <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header animate-on-scroll">
                 <h2>Implementation Process</h2>
                 <p>A proven methodology that ensures successful deployment and adoption across your organization.</p>
             </div>
             <div class="steps">
-                <div class="step">
+                <div class="step animate-on-scroll">
                     <div class="step-number">1</div>
                     <h3>Discovery & Planning</h3>
                     <p>Comprehensive assessment of your requirements, existing systems, and business objectives.</p>
                 </div>
-                <div class="step">
+                <div class="step animate-on-scroll">
                     <div class="step-number">2</div>
                     <h3>Custom Configuration</h3>
                     <p>Tailored setup including integrations, workflows, security policies, and user roles.</p>
                 </div>
-                <div class="step">
+                <div class="step animate-on-scroll">
                     <div class="step-number">3</div>
                     <h3>Training & Onboarding</h3>
                     <p>Comprehensive training programs for administrators, power users, and end users.</p>
                 </div>
-                <div class="step">
+                <div class="step animate-on-scroll">
                     <div class="step-number">4</div>
                     <h3>Launch & Optimization</h3>
                     <p>Phased rollout with continuous monitoring, optimization, and ongoing support.</p>
@@ -800,6 +1128,119 @@
     </footer>
 
     <script>
+        // Three.js 3D Background
+        const canvas = document.getElementById('canvas-3d');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        camera.position.z = 5;
+        
+        // Create floating geometric shapes
+        const geometry1 = new THREE.TetrahedronGeometry(0.5, 0);
+        const geometry2 = new THREE.OctahedronGeometry(0.4, 0);
+        const geometry3 = new THREE.TorusGeometry(0.3, 0.1, 16, 100);
+        
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x2563eb, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        
+        const shapes = [];
+        const geometries = [geometry1, geometry2, geometry3];
+        
+        for (let i = 0; i < 8; i++) {
+            const shape = new THREE.Mesh(geometries[i % 3], material.clone());
+            shape.position.x = (Math.random() - 0.5) * 10;
+            shape.position.y = (Math.random() - 0.5) * 10;
+            shape.position.z = (Math.random() - 0.5) * 5;
+            shape.rotation.x = Math.random() * Math.PI;
+            shape.rotation.y = Math.random() * Math.PI;
+            shapes.push(shape);
+            scene.add(shape);
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            shapes.forEach((shape, index) => {
+                shape.rotation.x += 0.001 * (index + 1);
+                shape.rotation.y += 0.002 * (index + 1);
+                shape.position.y += Math.sin(Date.now() * 0.001 + index) * 0.001;
+            });
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Parallax effect on hero section
+        const hero = document.getElementById('hero');
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+            
+            if (hero && window.scrollY < hero.offsetHeight) {
+                hero.style.transform = `perspective(1000px) rotateY(${mouseX * 2}deg) rotateX(${-mouseY * 2}deg)`;
+            }
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animated');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+        
+        // Stats animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate-in');
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.stat-item').forEach((el) => {
+            statsObserver.observe(el);
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
         // Supabase Integration for Waitlist
         const SUPABASE_URL = 'YOUR_SUPABASE_URL';
         const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
@@ -860,6 +1301,27 @@
                         block: 'start'
                     });
                 }
+            });
+        });
+        
+        // 3D Card tilt effect
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(50px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
             });
         });
     </script>
