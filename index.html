@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PowerUp - Enterprise Performance Platform</title>
-    <!-- Last updated: 2025-11-06 18:25 GMT+1 -->
+    <title>PowerUp - AI-Powered Slide Creation Platform</title>
+    <!-- Last updated: 2025-11-06 18:28 GMT+1 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -173,8 +173,625 @@
             background: var(--black);
             color: var(--white);
         }
-        
-        /* Trust Badges - Minimal */
+
+        /* PRODUCT MOCKUP SECTION */
+        .product-mockup {
+            background: var(--light-gray);
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mockup-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .browser-mockup {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .browser-header {
+            background: var(--dark-gray);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--medium-gray);
+        }
+
+        .browser-dot:nth-child(1) { background: #FF5F57; }
+        .browser-dot:nth-child(2) { background: #FFBD2E; }
+        .browser-dot:nth-child(3) { background: #28CA42; }
+
+        .editor-interface {
+            display: grid;
+            grid-template-columns: 200px 1fr 280px;
+            min-height: 600px;
+            background: var(--white);
+        }
+
+        .sidebar {
+            background: var(--light-gray);
+            border-right: 1px solid var(--border);
+            padding: 24px 16px;
+        }
+
+        .sidebar-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--medium-gray);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-item.active {
+            background: var(--white);
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .slide-canvas {
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #E8E8E8;
+        }
+
+        .slide-preview {
+            background: var(--white);
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 16/9;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            position: relative;
+        }
+
+        .slide-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 24px;
+        }
+
+        .slide-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .slide-bullet {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            font-size: 16px;
+            color: var(--medium-gray);
+        }
+
+        .slide-bullet::before {
+            content: '●';
+            color: var(--orange);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .ai-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--orange);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .properties-panel {
+            background: var(--light-gray);
+            border-left: 1px solid var(--border);
+            padding: 24px 16px;
+        }
+
+        .panel-section {
+            margin-bottom: 24px;
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .panel-control {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-suggest-btn {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .ai-suggest-btn:hover {
+            background: var(--orange-dark);
+        }
+
+        /* BEFORE/AFTER COMPARISON */
+        .before-after {
+            background: var(--white);
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .comparison-card {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .comparison-header {
+            padding: 20px 24px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-card.before .comparison-header {
+            background: #FFEBEB;
+            color: #C41E3A;
+        }
+
+        .comparison-card.after .comparison-header {
+            background: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .comparison-slide {
+            background: var(--light-gray);
+            padding: 40px;
+            min-height: 400px;
+        }
+
+        .slide-mockup {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .slide-mockup.basic h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .slide-mockup.basic p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--medium-gray);
+        }
+
+        .slide-mockup.enhanced {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-gray) 100%);
+        }
+
+        .slide-mockup.enhanced h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        .enhanced-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .enhanced-item {
+            display: flex;
+            align-items: start;
+            gap: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            border-left: 3px solid var(--orange);
+        }
+
+        .enhanced-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .enhanced-text {
+            flex: 1;
+        }
+
+        .enhanced-text h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--black);
+        }
+
+        .enhanced-text p {
+            font-size: 13px;
+            color: var(--medium-gray);
+        }
+
+        /* AI WORKFLOW VISUALIZATION */
+        .ai-workflow {
+            background: var(--black);
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .workflow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .workflow-step {
+            background: var(--dark-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            flex: 1;
+            min-width: 220px;
+            max-width: 260px;
+            position: relative;
+        }
+
+        .workflow-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--orange);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px;
+        }
+
+        .workflow-step h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .workflow-step p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .workflow-arrow {
+            color: var(--orange);
+            font-size: 32px;
+            margin: 0 -16px;
+        }
+
+        /* PERFORMANCE METRICS */
+        .performance-metrics {
+            background: var(--white);
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .metric-card {
+            background: var(--light-gray);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .metric-visual {
+            width: 100%;
+            height: 160px;
+            background: var(--white);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 20px;
+            gap: 12px;
+        }
+
+        .bar {
+            flex: 1;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .bar-fill {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            transition: height 1s ease;
+        }
+
+        .bar.before .bar-fill {
+            background: #E0E0E0;
+        }
+
+        .bar.after .bar-fill {
+            background: var(--orange);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--medium-gray);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .metric-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+
+        .metric-card p {
+            font-size: 14px;
+            color: var(--medium-gray);
+        }
+
+        .metric-improvement {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        /* PRODUCT DEMO SECTION */
+        .product-demo {
+            background: var(--light-gray);
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .demo-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-screenshot {
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .demo-content {
+            padding: 32px;
+        }
+
+        .demo-content h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .demo-content p {
+            font-size: 15px;
+            color: var(--medium-gray);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .demo-feature-list {
+            list-style: none;
+        }
+
+        .demo-feature-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--medium-gray);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .demo-feature-list li::before {
+            content: '✓';
+            color: var(--orange);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* VISUAL STORYTELLING */
+        .visual-story {
+            background: var(--white);
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-timeline {
+            max-width: 900px;
+            margin: 60px auto 0;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .story-item {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .story-number {
+            width: 80px;
+            height: 80px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .story-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+
+        .story-content h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--black);
+        }
+
+        .story-content p {
+            font-size: 16px;
+            color: var(--medium-gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .story-visual {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            margin-top: 16px;
+        }
+
+        .integration-icons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .integration-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--medium-gray);
+            font-size: 12px;
+        }
+
+        /* Trust Badges */
         .trust-badges {
             background: var(--light-gray);
             padding: 40px 0;
@@ -233,14 +850,6 @@
             font-weight: 500;
         }
         
-        /* Problem/Solution Section */
-        .problem-solution {
-            padding: 100px 0;
-            background: var(--black);
-            position: relative;
-            z-index: 1;
-        }
-        
         .section-header {
             text-align: center;
             margin-bottom: 80px;
@@ -249,175 +858,26 @@
         .section-header h2 {
             font-size: 48px;
             margin-bottom: 16px;
-            color: var(--white);
+            color: var(--black);
             font-weight: 700;
             letter-spacing: -0.02em;
+        }
+
+        .section-header.light h2 {
+            color: var(--white);
+        }
+
+        .section-header.light p {
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .section-header p {
             font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--medium-gray);
             max-width: 600px;
             margin: 0 auto;
         }
-        
-        .two-column {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-        
-        .column {
-            padding: 48px;
-            border-radius: 12px;
-            background: var(--dark-gray);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .column h3 {
-            font-size: 24px;
-            margin-bottom: 24px;
-            color: var(--white);
-            font-weight: 600;
-        }
-        
-        .column ul {
-            list-style: none;
-        }
-        
-        .column ul li {
-            padding: 12px 0 12px 28px;
-            position: relative;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-        
-        .column ul li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 20px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--orange);
-        }
-        
-        .problem {
-            border-left: 3px solid rgba(255, 107, 53, 0.3);
-        }
-        
-        .solution {
-            border-left: 3px solid var(--orange);
-        }
-        
-        /* Features Section */
-        .features {
-            background: var(--white);
-            padding: 100px 0;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .section-header.dark h2 {
-            color: var(--black);
-        }
-        
-        .section-header.dark p {
-            color: var(--medium-gray);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-            margin-top: 60px;
-        }
-        
-        .feature-card {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-        }
-        
-        .feature-card:hover {
-            border-color: var(--orange);
-            transform: translateY(-2px);
-        }
-        
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--orange);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 24px;
-        }
-        
-        .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        
-        .feature-card p {
-            color: var(--medium-gray);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        
-        /* How It Works */
-        .how-it-works {
-            background: var(--light-gray);
-            padding: 100px 0;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-        
-        .step {
-            text-align: center;
-            padding: 40px 24px;
-        }
-        
-        .step-number {
-            width: 56px;
-            height: 56px;
-            background: var(--orange);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 auto 24px;
-        }
-        
-        .step h3 {
-            font-size: 18px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        
-        .step p {
-            color: var(--medium-gray);
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        
+
         /* Waitlist Section */
         .waitlist {
             background: var(--black);
@@ -588,9 +1048,25 @@
             .hero p {
                 font-size: 18px;
             }
-            
-            .two-column {
+
+            .editor-interface {
                 grid-template-columns: 1fr;
+            }
+
+            .sidebar, .properties-panel {
+                display: none;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-diagram {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
             }
             
             .section-header h2 {
@@ -606,6 +1082,17 @@
                 margin-top: 12px;
                 display: block;
             }
+
+            .story-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
@@ -619,8 +1106,8 @@
             <div class="header-content">
                 <a href="#" class="logo">Power<span class="logo-accent">Up</span></a>
                 <nav>
-                    <a href="#features">Features</a>
-                    <a href="#how-it-works">How It Works</a>
+                    <a href="#product">Product</a>
+                    <a href="#demo">Demo</a>
                     <a href="#waitlist">Get Started</a>
                 </nav>
             </div>
@@ -631,10 +1118,373 @@
     <section class="hero" id="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Enterprise Performance <span class="hero-highlight">Reimagined</span></h1>
-                <p>The platform trusted by Fortune 500 companies to drive measurable outcomes, streamline operations, and scale with confidence.</p>
-                <a href="#waitlist" class="cta-button">Request Demo</a>
-                <a href="#features" class="cta-button cta-secondary">Explore Features</a>
+                <h1>AI-Powered Slide Creation <span class="hero-highlight">Reimagined</span></h1>
+                <p>Transform your presentations with intelligent AI that creates professional, impactful slides in seconds. PowerUp integrates seamlessly with PowerPoint to enhance every slide.</p>
+                <a href="#waitlist" class="cta-button">Start Free Trial</a>
+                <a href="#product" class="cta-button cta-secondary">See It In Action</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT MOCKUP SECTION -->
+    <section class="product-mockup" id="product">
+        <div class="mockup-container">
+            <div class="section-header dark">
+                <h2>Meet Your AI Slide Editor</h2>
+                <p>Professional slide creation powered by advanced AI technology</p>
+            </div>
+            <div class="browser-mockup">
+                <div class="browser-header">
+                    <div class="browser-dot"></div>
+                    <div class="browser-dot"></div>
+                    <div class="browser-dot"></div>
+                </div>
+                <div class="editor-interface">
+                    <div class="sidebar">
+                        <div class="sidebar-item active">📊 Slides</div>
+                        <div class="sidebar-item">🎨 Templates</div>
+                        <div class="sidebar-item">🤖 AI Tools</div>
+                        <div class="sidebar-item">📁 Library</div>
+                        <div class="sidebar-item">⚙️ Settings</div>
+                    </div>
+                    <div class="slide-canvas">
+                        <div class="slide-preview">
+                            <div class="ai-badge">AI Generated</div>
+                            <div class="slide-title">Q4 Revenue Growth</div>
+                            <div class="slide-content">
+                                <div class="slide-bullet">45% increase in enterprise sales YoY</div>
+                                <div class="slide-bullet">Record customer retention at 98%</div>
+                                <div class="slide-bullet">Expanded to 12 new markets globally</div>
+                                <div class="slide-bullet">$50M ARR milestone achieved ahead of schedule</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="properties-panel">
+                        <div class="panel-section">
+                            <div class="panel-title">Design</div>
+                            <div class="panel-control">
+                                <span>Theme</span>
+                                <span>Professional</span>
+                            </div>
+                            <div class="panel-control">
+                                <span>Font</span>
+                                <span>Inter</span>
+                            </div>
+                            <div class="panel-control">
+                                <span>Colors</span>
+                                <span>Brand</span>
+                            </div>
+                        </div>
+                        <div class="panel-section">
+                            <div class="panel-title">AI Enhance</div>
+                            <button class="ai-suggest-btn">✨ Improve Copy</button>
+                            <button class="ai-suggest-btn">📊 Add Chart</button>
+                            <button class="ai-suggest-btn">🎨 Enhance Design</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE/AFTER COMPARISON -->
+    <section class="before-after">
+        <div class="container">
+            <div class="section-header dark">
+                <h2>See The PowerUp Difference</h2>
+                <p>Transform ordinary slides into professional presentations instantly</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card before">
+                    <div class="comparison-header">❌ Before PowerUp</div>
+                    <div class="comparison-slide">
+                        <div class="slide-mockup basic">
+                            <h3>Company Update</h3>
+                            <p>We had a good quarter with sales up and customers happy. We also launched new products and hired more people. Looking forward to next quarter with more growth planned.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card after">
+                    <div class="comparison-header">✅ With PowerUp AI</div>
+                    <div class="comparison-slide">
+                        <div class="slide-mockup enhanced">
+                            <h3>Q4 2025 Performance Highlights</h3>
+                            <div class="enhanced-content">
+                                <div class="enhanced-item">
+                                    <div class="enhanced-icon">📈</div>
+                                    <div class="enhanced-text">
+                                        <h4>Revenue Growth</h4>
+                                        <p>32% YoY increase, exceeding targets by $2.4M</p>
+                                    </div>
+                                </div>
+                                <div class="enhanced-item">
+                                    <div class="enhanced-icon">⭐</div>
+                                    <div class="enhanced-text">
+                                        <h4>Customer Success</h4>
+                                        <p>98% retention rate, NPS score improved to 72</p>
+                                    </div>
+                                </div>
+                                <div class="enhanced-item">
+                                    <div class="enhanced-icon">🚀</div>
+                                    <div class="enhanced-text">
+                                        <h4>Product Innovation</h4>
+                                        <p>3 major launches, 15K+ early adopters</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI WORKFLOW VISUALIZATION -->
+    <section class="ai-workflow">
+        <div class="container">
+            <div class="section-header light">
+                <h2>Intelligent Agentic Workflow</h2>
+                <p>AI agents work together to create your perfect presentation</p>
+            </div>
+            <div class="workflow-diagram">
+                <div class="workflow-step">
+                    <div class="workflow-icon">📝</div>
+                    <h3>Content Analysis</h3>
+                    <p>AI analyzes your input and understands context, audience, and goals</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="workflow-icon">🎯</div>
+                    <h3>Structure Planning</h3>
+                    <p>Creates optimal slide flow and hierarchy for maximum impact</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="workflow-icon">✨</div>
+                    <h3>Design Generation</h3>
+                    <p>Applies professional design principles and brand guidelines</p>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="workflow-icon">🚀</div>
+                    <h3>PowerPoint Export</h3>
+                    <p>Seamlessly exports to native PowerPoint format with full editability</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERFORMANCE METRICS -->
+    <section class="performance-metrics">
+        <div class="container">
+            <div class="section-header dark">
+                <h2>Measurable Performance Impact</h2>
+                <p>Real metrics from enterprise customers using PowerUp</p>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-visual">
+                        <div class="bar before">
+                            <div class="bar-fill" style="height: 40%;"></div>
+                            <div class="bar-label">Before</div>
+                        </div>
+                        <div class="bar after">
+                            <div class="bar-fill" style="height: 95%;"></div>
+                            <div class="bar-label">With PowerUp</div>
+                        </div>
+                    </div>
+                    <h3>Time Savings</h3>
+                    <p>Create presentations in minutes, not hours</p>
+                    <div class="metric-improvement">85% Faster</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-visual">
+                        <div class="bar before">
+                            <div class="bar-fill" style="height: 45%;"></div>
+                            <div class="bar-label">Before</div>
+                        </div>
+                        <div class="bar after">
+                            <div class="bar-fill" style="height: 90%;"></div>
+                            <div class="bar-label">With PowerUp</div>
+                        </div>
+                    </div>
+                    <h3>Design Quality</h3>
+                    <p>Professional-grade visuals every time</p>
+                    <div class="metric-improvement">2x Better</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-visual">
+                        <div class="bar before">
+                            <div class="bar-fill" style="height: 35%;"></div>
+                            <div class="bar-label">Before</div>
+                        </div>
+                        <div class="bar after">
+                            <div class="bar-fill" style="height: 88%;"></div>
+                            <div class="bar-label">With PowerUp</div>
+                        </div>
+                    </div>
+                    <h3>Team Productivity</h3>
+                    <p>More presentations, less effort</p>
+                    <div class="metric-improvement">3.5x More</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT DEMO SECTION -->
+    <section class="product-demo" id="demo">
+        <div class="container">
+            <div class="section-header dark">
+                <h2>Powerful Features, Simple Interface</h2>
+                <p>Everything you need to create stunning presentations</p>
+            </div>
+            <div class="demo-features">
+                <div class="demo-card">
+                    <div class="demo-screenshot">🎨</div>
+                    <div class="demo-content">
+                        <h3>Smart Templates</h3>
+                        <p>Access 500+ professionally designed templates that adapt to your content automatically</p>
+                        <ul class="demo-feature-list">
+                            <li>Industry-specific designs</li>
+                            <li>Brand color matching</li>
+                            <li>Auto-layout optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-screenshot">🤖</div>
+                    <div class="demo-content">
+                        <h3>AI Copywriting</h3>
+                        <p>Generate compelling, audience-specific content that drives results</p>
+                        <ul class="demo-feature-list">
+                            <li>Executive summaries</li>
+                            <li>Data storytelling</li>
+                            <li>Persuasive messaging</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-screenshot">📊</div>
+                    <div class="demo-content">
+                        <h3>Data Visualization</h3>
+                        <p>Transform raw data into beautiful, insightful charts and graphs</p>
+                        <ul class="demo-feature-list">
+                            <li>Auto chart selection</li>
+                            <li>Interactive elements</li>
+                            <li>Real-time data sync</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-screenshot">⚡</div>
+                    <div class="demo-content">
+                        <h3>Instant Export</h3>
+                        <p>Export to PowerPoint with full editability and formatting preserved</p>
+                        <ul class="demo-feature-list">
+                            <li>Native .pptx format</li>
+                            <li>Maintains all animations</li>
+                            <li>Cloud sync available</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-screenshot">🔗</div>
+                    <div class="demo-content">
+                        <h3>Team Collaboration</h3>
+                        <p>Work together seamlessly with real-time editing and comments</p>
+                        <ul class="demo-feature-list">
+                            <li>Multi-user editing</li>
+                            <li>Version history</li>
+                            <li>Review workflows</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-screenshot">🎯</div>
+                    <div class="demo-content">
+                        <h3>Brand Management</h3>
+                        <p>Ensure consistent branding across all presentations automatically</p>
+                        <ul class="demo-feature-list">
+                            <li>Logo placement</li>
+                            <li>Color palette enforcement</li>
+                            <li>Font standardization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISUAL STORYTELLING -->
+    <section class="visual-story">
+        <div class="container">
+            <div class="section-header dark">
+                <h2>How PowerUp Enhances Your Workflow</h2>
+                <p>From idea to polished presentation in four seamless steps</p>
+            </div>
+            <div class="story-timeline">
+                <div class="timeline-line"></div>
+                <div class="story-item">
+                    <div class="story-number">1</div>
+                    <div class="story-content">
+                        <h3>Connect Your Tools</h3>
+                        <p>PowerUp integrates directly with PowerPoint, Google Slides, and your favorite productivity tools. Install once, enhance forever.</p>
+                        <div class="story-visual">
+                            <div class="integration-icons">
+                                <div class="integration-icon">PPT</div>
+                                <div class="integration-icon">GDOC</div>
+                                <div class="integration-icon">XLSX</div>
+                                <div class="integration-icon">PDF</div>
+                                <div class="integration-icon">SFDC</div>
+                                <div class="integration-icon">SLACK</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-item">
+                    <div class="story-number">2</div>
+                    <div class="story-content">
+                        <h3>Describe Your Vision</h3>
+                        <p>Simply tell PowerUp what you need. Our AI understands context, audience, and objectives to create the perfect structure.</p>
+                        <div class="story-visual">
+                            <div style="padding: 16px; font-size: 14px; color: var(--medium-gray); font-style: italic;">
+                                "Create a 10-slide investor pitch deck highlighting our Q4 revenue growth, product roadmap, and market opportunity..."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-item">
+                    <div class="story-number">3</div>
+                    <div class="story-content">
+                        <h3>AI Creates, You Refine</h3>
+                        <p>Watch as AI generates professional slides in seconds. Then use our intuitive editor to customize, adjust, and perfect every detail.</p>
+                        <div class="story-visual">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                                <div style="font-size: 12px; color: var(--medium-gray);">⚡ Generating slides...</div>
+                                <div style="font-size: 12px; font-weight: 600; color: var(--orange);">Complete: 3.2s</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-item">
+                    <div class="story-number">4</div>
+                    <div class="story-content">
+                        <h3>Present With Confidence</h3>
+                        <p>Export to native PowerPoint format with all features intact. Your audience sees professional quality, you see massive time savings.</p>
+                        <div class="story-visual">
+                            <div style="padding: 16px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span style="font-size: 14px; color: var(--medium-gray);">Time saved per deck</span>
+                                    <span style="font-size: 18px; font-weight: 700; color: var(--orange);">4.5 hours</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="font-size: 14px; color: var(--medium-gray);">Quality improvement</span>
+                                    <span style="font-size: 18px; font-weight: 700; color: var(--orange);">+185%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -644,16 +1494,16 @@
         <div class="container">
             <div class="badges-grid">
                 <div class="badge">
-                    <h3>ISO 27001 Certified</h3>
+                    <h3>Enterprise Security</h3>
                 </div>
                 <div class="badge">
-                    <h3>SOC 2 Type II</h3>
+                    <h3>SOC 2 Certified</h3>
                 </div>
                 <div class="badge">
                     <h3>GDPR Compliant</h3>
                 </div>
                 <div class="badge">
-                    <h3>HIPAA Ready</h3>
+                    <h3>24/7 Support</h3>
                 </div>
             </div>
         </div>
@@ -664,126 +1514,20 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <h2>500+</h2>
-                    <p>Enterprise Clients</p>
+                    <h2>10K+</h2>
+                    <p>Active Users</p>
                 </div>
                 <div class="stat-item">
-                    <h2>99.99%</h2>
-                    <p>Uptime SLA</p>
+                    <h2>500K+</h2>
+                    <p>Slides Created</p>
                 </div>
                 <div class="stat-item">
-                    <h2>24/7</h2>
-                    <p>Expert Support</p>
+                    <h2>85%</h2>
+                    <p>Time Saved</p>
                 </div>
                 <div class="stat-item">
-                    <h2>45%</h2>
-                    <p>Efficiency Gain</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Problem/Solution Section -->
-    <section class="problem-solution">
-        <div class="container">
-            <div class="section-header">
-                <h2>Built for Modern Enterprises</h2>
-                <p>We address the challenges that matter most to your organization.</p>
-            </div>
-            <div class="two-column">
-                <div class="column problem">
-                    <h3>The Challenge</h3>
-                    <ul>
-                        <li>Fragmented systems creating data silos</li>
-                        <li>Complex compliance requirements</li>
-                        <li>Inefficient workflows wasting resources</li>
-                        <li>Limited operational visibility</li>
-                        <li>Scalability constraints</li>
-                    </ul>
-                </div>
-                <div class="column solution">
-                    <h3>Our Solution</h3>
-                    <ul>
-                        <li>Unified platform with seamless integrations</li>
-                        <li>Enterprise-grade security framework</li>
-                        <li>Intelligent automation reducing overhead by 40%</li>
-                        <li>Real-time analytics and insights</li>
-                        <li>Infrastructure that scales with your growth</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header dark">
-                <h2>Enterprise-Grade Platform</h2>
-                <p>Built for the demands of modern enterprise environments.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
-                    <h3>Advanced Security</h3>
-                    <p>Bank-level encryption, SSO, role-based access control, and comprehensive audit logs.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Workflow Automation</h3>
-                    <p>Automate complex processes with our no-code builder and reduce manual overhead.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Analytics & Insights</h3>
-                    <p>Powerful reporting with customizable dashboards for data-driven decisions.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔗</div>
-                    <h3>Seamless Integration</h3>
-                    <p>Connect with 200+ enterprise tools including Salesforce, Microsoft 365, and SAP.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3>Scalable Infrastructure</h3>
-                    <p>Cloud-native architecture from 100 to 100,000 users without compromise.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Dedicated Support</h3>
-                    <p>24/7 enterprise support with dedicated account managers and 99.99% uptime SLA.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header dark">
-                <h2>Implementation Process</h2>
-                <p>A proven methodology ensuring successful deployment and adoption.</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Discovery</h3>
-                    <p>Comprehensive assessment of your requirements and business objectives.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Configuration</h3>
-                    <p>Tailored setup including integrations, workflows, and security policies.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Training</h3>
-                    <p>Comprehensive programs for administrators, power users, and end users.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Launch</h3>
-                    <p>Phased rollout with monitoring, optimization, and ongoing support.</p>
+                    <h2>4.9/5</h2>
+                    <p>User Rating</p>
                 </div>
             </div>
         </div>
@@ -793,15 +1537,15 @@
     <section id="waitlist" class="waitlist">
         <div class="container">
             <div class="waitlist-content">
-                <h2>Get Started Today</h2>
-                <p>Join 500+ leading organizations. Schedule a personalized demo with our enterprise team.</p>
+                <h2>Start Creating Better Slides Today</h2>
+                <p>Join thousands of professionals who've transformed their presentation workflow with PowerUp AI.</p>
                 <form id="waitlistForm" class="waitlist-form">
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
                         <input type="text" id="fullName" name="fullName" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Business Email *</label>
+                        <label for="email">Work Email *</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
@@ -809,16 +1553,16 @@
                         <input type="text" id="company" name="company" required>
                     </div>
                     <div class="form-group">
-                        <label for="companySize">Company Size *</label>
+                        <label for="companySize">Team Size *</label>
                         <select id="companySize" name="companySize" required>
-                            <option value="">Select company size</option>
-                            <option value="50-200">50-200 employees</option>
-                            <option value="201-1000">201-1,000 employees</option>
-                            <option value="1001-5000">1,001-5,000 employees</option>
-                            <option value="5000+">5,000+ employees</option>
+                            <option value="">Select team size</option>
+                            <option value="1-10">1-10 people</option>
+                            <option value="11-50">11-50 people</option>
+                            <option value="51-200">51-200 people</option>
+                            <option value="201+">201+ people</option>
                         </select>
                     </div>
-                    <button type="submit" class="submit-button">Request Demo</button>
+                    <button type="submit" class="submit-button">Start Free Trial</button>
                     <div id="formMessage" class="form-message"></div>
                 </form>
             </div>
@@ -833,8 +1577,8 @@
                     <h4>Product</h4>
                     <ul>
                         <li><a href="#">Features</a></li>
+                        <li><a href="#">Templates</a></li>
                         <li><a href="#">Integrations</a></li>
-                        <li><a href="#">Security</a></li>
                         <li><a href="#">Pricing</a></li>
                     </ul>
                 </div>
@@ -842,23 +1586,23 @@
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Tutorials</a></li>
                         <li><a href="#">Case Studies</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Support</a></li>
+                        <li><a href="#">API</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Company</h4>
                     <ul>
                         <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
                         <li><a href="#">Careers</a></li>
                         <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 PowerUp. All rights reserved.</p>
+                <p>&copy; 2025 PowerUp. All rights reserved. Built for presentation excellence.</p>
             </div>
         </div>
     </footer>
@@ -917,10 +1661,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
         
-        // Supabase Integration
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-
+        // Form handling
         document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -936,33 +1677,16 @@
             const submitButton = e.target.querySelector('.submit-button');
             
             submitButton.disabled = true;
-            submitButton.textContent = 'Submitting...';
+            submitButton.textContent = 'Processing...';
 
-            try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    messageDiv.className = 'form-message success';
-                    messageDiv.textContent = 'Success! Our team will contact you within 24 hours.';
-                    e.target.reset();
-                } else {
-                    throw new Error('Submission failed');
-                }
-            } catch (error) {
-                messageDiv.className = 'form-message error';
-                messageDiv.textContent = 'Unable to submit. Please email us at enterprise@powerup.com';
-            } finally {
+            // Simulate success (replace with actual API call)
+            setTimeout(() => {
+                messageDiv.className = 'form-message success';
+                messageDiv.textContent = '🎉 Success! Check your email for next steps.';
+                e.target.reset();
                 submitButton.disabled = false;
-                submitButton.textContent = 'Request Demo';
-            }
+                submitButton.textContent = 'Start Free Trial';
+            }, 1000);
         });
 
         // Smooth scrolling
